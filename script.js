@@ -1,6 +1,7 @@
 const dropZone = document.getElementById("dropZone");
 const fileInput = document.getElementById("fileInput");
 const proceedBtn = document.getElementById("proceedBtn");
+const uploadNotification = document.getElementById("uploadNotification");
 
 function isSupportedFile(file) {
     const allowedTypes = [
@@ -13,12 +14,25 @@ function isSupportedFile(file) {
         /\.(csv|xls|xlsx)$/i.test(file.name);
 }
 
+function showUploadNotification(message) {
+    uploadNotification.textContent = message;
+    uploadNotification.hidden = false;
+
+    clearTimeout(showUploadNotification.timeoutId);
+    showUploadNotification.timeoutId = setTimeout(() => {
+        uploadNotification.hidden = true;
+        uploadNotification.textContent = "";
+    }, 3000);
+}
+
 function attachFile(files) {
     if (!files || !files.length) return;
 
     const file = files[0];
 
     if (!isSupportedFile(file)) {
+        uploadNotification.hidden = true;
+        uploadNotification.textContent = "";
         alert("Please select a CSV, XLS, or XLSX file.");
         return;
     }
@@ -26,6 +40,7 @@ function attachFile(files) {
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     fileInput.files = dataTransfer.files;
+    showUploadNotification("File uploaded successfully!");
 }
 
 function processFile() {

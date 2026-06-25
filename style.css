@@ -93,6 +93,17 @@ input[type="file"]{
     transform:scale(1.01);
 }
 
+.upload-notification{
+    margin:16px 0 25px;
+    padding:12px 16px;
+    border-radius:12px;
+    background:#dcfce7;
+    color:#166534;
+    border:1px solid #86efac;
+    font-weight:600;
+    text-align:center;
+}
+
 /* Floating Symbols */
 
 .symbol{
